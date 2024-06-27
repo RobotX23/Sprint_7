@@ -1,11 +1,11 @@
 import pytest
 import requests
 import allure
+import json
 
 
 class TestOrder:
     @allure.title('Создание заказа с цветом Black')
-    #Ошибка сервера код 500. Тест не возможно выполните по ТЗ. В коментах указал как должна происходить проверка после восстановления работы API.
     @pytest.mark.parametrize('firstName, lastName, address, metroStation, phone, rentTime, deliveryDate, comment, color', [('Naruto', 'Uchiha', 'Konoha, 142 apt.', 4, '+7 800 355 35 35', 5, '2020-06-06', 'Saske, come back to Konoha', ["BLACK"])])
     def test_order_color_black(self,firstName, lastName, address, metroStation, phone, rentTime, deliveryDate, comment, color ):
         payload = {
@@ -20,12 +20,13 @@ class TestOrder:
     "color": color
         }
 
-        response = requests.post('https://qa-scooter.praktikum-services.ru/api/v1/orders', data=payload)
-        #assert response.status_code == 201 and ('track' in response.json()) При корректно работе сервера
-        assert response.status_code == 500
+        headers = {"Content-type": "application/json"}
+        payload_1 = json.dumps(payload)
+        response = requests.post('https://qa-scooter.praktikum-services.ru/api/v1/orders', data=payload_1,
+                                 headers=headers)
+        assert response.status_code == 201 and ('track' in response.json())
 
     @allure.title('Создание заказа с цветом Grey')
-    #Ошибка сервера код 500. Тест не возможно выполните по ТЗ. В коментах указал как должна происходить проверка после восстановления работы API.
     @pytest.mark.parametrize('firstName, lastName, address, metroStation, phone, rentTime, deliveryDate, comment, color', [('Naruto', 'Uchiha', 'Konoha, 142 apt.', 4, '+7 800 355 35 35', 5, '2020-06-06', 'Saske, come back to Konoha', ["GREY"])])
     def test_order_color_grey(self,firstName, lastName, address, metroStation, phone, rentTime, deliveryDate, comment, color ):
         payload = {
@@ -40,10 +41,11 @@ class TestOrder:
     "color": color
 
         }
+        headers = {"Content-type": "application/json"}
+        payload_1 = json.dumps(payload)
+        response = requests.post('https://qa-scooter.praktikum-services.ru/api/v1/orders', data=payload_1, headers=headers)
+        assert response.status_code == 201 and ('track' in response.json())
 
-        response = requests.post('https://qa-scooter.praktikum-services.ru/api/v1/orders', data=payload)
-        #assert response.status_code == 201 and ('track' in response.json()) При корректно работе сервера
-        assert response.status_code == 500
 
     @allure.title('Создание заказа с двумя цветами')
     @pytest.mark.parametrize('firstName, lastName, address, metroStation, phone, rentTime, deliveryDate, comment, color', [('Naruto', 'Uchiha', 'Konoha, 142 apt.', 4, '+7 800 355 35 35', 5, '2020-06-06', 'Saske, come back to Konoha', ["GREY", "BLACK"])])
