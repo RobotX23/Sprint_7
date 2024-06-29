@@ -1,6 +1,7 @@
-from data import *
+from helpers import *
 import pytest
 import allure
+from data import *
 
 class TestUser:
 
@@ -22,13 +23,13 @@ class TestUser:
             "firstName": first_name
         }
 
-        response = requests.post('https://qa-scooter.praktikum-services.ru/api/v1/courier', data=payload)
-        assert (response.json()['message'] == 'Этот логин уже используется. Попробуйте другой.') and response.json()['code'] == 409
+        response = requests.post(f"{url}/api/v1/courier", data=payload)
+        assert (response.json()['message'] == log_used) and response.json()['code'] == 409
 
     @allure.title('Создание курьера без вводных данных')
     def test_no_pass_and_log_and_firstname(self):
-        response = requests.post('https://qa-scooter.praktikum-services.ru/api/v1/courier')
-        assert response.json()['code'] == 400 and response.json()['message'] == "Недостаточно данных для создания учетной записи"
+        response = requests.post(f"{url}/api/v1/courier")
+        assert response.json()['code'] == 400 and response.json()['message'] == not_enough
 
     @allure.title('Создание курьера без пароля')
     @pytest.mark.parametrize('login', [('jkdfslsddas12312dsdvn')])
@@ -37,8 +38,8 @@ class TestUser:
             "login": login,
         }
 
-        response = requests.post('https://qa-scooter.praktikum-services.ru/api/v1/courier', data=payload)
-        assert response.json()['message'] == "Недостаточно данных для создания учетной записи" and response.json()['code'] == 400
+        response = requests.post(f"{url}/api/v1/courier", data=payload)
+        assert response.json()['message'] == not_enough and response.json()['code'] == 400
 
     @allure.title('Создание курьера без логина')
     @pytest.mark.parametrize('password', [('jkdfslsddas12312dsdvn')])
@@ -47,7 +48,7 @@ class TestUser:
             "password": password,
         }
 
-        response = requests.post('https://qa-scooter.praktikum-services.ru/api/v1/courier', data=payload)
+        response = requests.post(f"{url}/api/v1/courier", data=payload)
         print(response.json())
-        assert response.json()['message'] == "Недостаточно данных для создания учетной записи" and response.json()['code'] == 400
+        assert response.json()['message'] == not_enough and response.json()['code'] == 400
 
