@@ -38,7 +38,6 @@ class TestUser:
         }
 
         response = requests.post('https://qa-scooter.praktikum-services.ru/api/v1/courier', data=payload)
-        print(response.json())
         assert response.json()['message'] == "Недостаточно данных для создания учетной записи" and response.json()['code'] == 400
 
     @allure.title('Создание курьера без логина')
