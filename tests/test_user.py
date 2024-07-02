@@ -23,12 +23,12 @@ class TestUser:
             "firstName": first_name
         }
 
-        response = requests.post(f"{url}/api/v1/courier", data=payload)
+        response = requests.post(f"{url}{endpoint_user}", data=payload)
         assert (response.json()['message'] == log_used) and response.json()['code'] == 409
 
     @allure.title('Создание курьера без вводных данных')
     def test_no_pass_and_log_and_firstname(self):
-        response = requests.post(f"{url}/api/v1/courier")
+        response = requests.post(f"{url}{endpoint_user}")
         assert response.json()['code'] == 400 and response.json()['message'] == not_enough
 
     @allure.title('Создание курьера без пароля')
@@ -38,7 +38,7 @@ class TestUser:
             "login": login,
         }
 
-        response = requests.post(f"{url}/api/v1/courier", data=payload)
+        response = requests.post(f"{url}{endpoint_user}", data=payload)
         assert response.json()['message'] == not_enough and response.json()['code'] == 400
 
     @allure.title('Создание курьера без логина')
@@ -48,7 +48,6 @@ class TestUser:
             "password": password,
         }
 
-        response = requests.post(f"{url}/api/v1/courier", data=payload)
-        print(response.json())
+        response = requests.post(f"{url}{endpoint_user}", data=payload)
         assert response.json()['message'] == not_enough and response.json()['code'] == 400
 

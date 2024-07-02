@@ -1,6 +1,12 @@
 url = 'https://qa-scooter.praktikum-services.ru'
+endpoint_user = '/api/v1/courier'
+endpoint_orders = '/api/v1/orders'
+endpoint_login = '/api/v1/courier/login'
 not_enough_entrance = "Недостаточно данных для входа"
 not_enough = "Недостаточно данных для создания учетной записи"
 not_uz = "Учетная запись не найдена"
 log_used = "Этот логин уже используется. Попробуйте другой."
-dates ={'firstName' :'Naruto', 'lastName': 'Uchiha','address': 'Konoha, 142 apt.','metroStation': 4,'phone': '+7 800 355 35 35','rentTime': 5,'deliveryDate': '2020-06-06', 'comment': 'Saske, come back to Konoha','color':{1:[],2:['BLACK'],3:['GREY'], 4:['BLACK','GREY']}}
+payload_color_black ={'firstName' :'Naruto', 'lastName': 'Uchiha','address': 'Konoha, 142 apt.','metroStation': 4,'phone': '+7 800 355 35 35','rentTime': 5,'deliveryDate': '2020-06-06', 'comment': 'Saske, come back to Konoha','color':['BLACK']}
+payload_color_grey ={'firstName' :'Naruto', 'lastName': 'Uchiha','address': 'Konoha, 142 apt.','metroStation': 4,'phone': '+7 800 355 35 35','rentTime': 5,'deliveryDate': '2020-06-06', 'comment': 'Saske, come back to Konoha','color':['GREY']}
+payload_color ={'firstName' :'Naruto', 'lastName': 'Uchiha','address': 'Konoha, 142 apt.','metroStation': 4,'phone': '+7 800 355 35 35','rentTime': 5,'deliveryDate': '2020-06-06', 'comment': 'Saske, come back to Konoha','color':['BLACK','GREY']}
+payload_no_color ={'firstName' :'Naruto', 'lastName': 'Uchiha','address': 'Konoha, 142 apt.','metroStation': 4,'phone': '+7 800 355 35 35','rentTime': 5,'deliveryDate': '2020-06-06', 'comment': 'Saske, come back to Konoha','color':[]}

@@ -12,7 +12,7 @@ class TestLog:
             "login": returne[0],
             "password": returne[1],
         }
-        response = requests.post(f"{url}/api/v1/courier/login", data=payload)
+        response = requests.post(f"{url}{endpoint_login}", data=payload)
         assert  response.status_code == 200 and ('id' in response.json())
 
 
@@ -25,7 +25,7 @@ class TestLog:
             "login": login,
         }
 
-        response = requests.post(f"{url}/api/v1/courier/login", data=payload)
+        response = requests.post(f"{url}{endpoint_login}", data=payload)
         assert response.status_code == 400 and response.json()['message'] == not_enough_entrance
 
     @allure.title('Логирование без лога')
@@ -35,7 +35,7 @@ class TestLog:
             "password": password,
         }
 
-        response = requests.post(f"{url}/api/v1/courier/login", data=payload)
+        response = requests.post(f"{url}{endpoint_login}", data=payload)
         assert response.status_code == 400 and response.json()['message'] == not_enough_entrance
 
     @allure.title('Логирование с некорректным паролем')
@@ -46,7 +46,7 @@ class TestLog:
             "password": password,
         }
 
-        response = requests.post(f"{url}/api/v1/courier/login", data=payload)
+        response = requests.post(f"{url}{endpoint_login}", data=payload)
         assert response.status_code == 404 and response.json()['message'] == not_uz
 
     @allure.title('Логирование с некорректным логином')
@@ -57,5 +57,5 @@ class TestLog:
             "password": password,
         }
 
-        response = requests.post(f"{url}/api/v1/courier/login", data=payload)
+        response = requests.post(f"{url}{endpoint_login}", data=payload)
         assert response.status_code == 404 and response.json()['message'] == not_uz
